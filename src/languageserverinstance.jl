@@ -186,7 +186,8 @@ function trigger_symbolstore_reload(server::LanguageServerInstance)
             server.env_path,
             function (msg, percentage = missing)
                 if server.clientcapability_window_workdoneprogress && server.current_symserver_progress_token !== nothing
-                    msg = ismissing(percentage) ? msg : string(msg, " ($percentage%)")
+                    # FIXME heirline.nvim doesn't like the '%' character...
+                    # msg = ismissing(percentage) ? msg : string(msg, " ($percentage%)")
                     JSONRPC.send(
                         server.jr_endpoint,
                         progress_notification_type,
